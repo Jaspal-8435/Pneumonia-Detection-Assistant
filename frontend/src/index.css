@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #1f2933;
+  background: #f6faf8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-surface {
+  @apply border border-base-300 bg-white shadow-sm;
+}
+
+.xray-frame {
+  @apply aspect-square w-full overflow-hidden rounded-lg border border-base-300 bg-base-200;
+}
+
+.xray-frame img {
+  @apply h-full w-full object-contain;
+}
+

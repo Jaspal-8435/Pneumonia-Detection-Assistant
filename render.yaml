@@ -1,0 +1,68 @@
+services:
+  - type: web
+    name: pneumonia-detection-diagnosis-assistant-1
+    runtime: python
+    rootDir: ml-model
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 180
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: MODEL_PATH
+        value: model.h5
+      - key: THRESHOLD_PATH
+        value: threshold.json
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: WARM_UP_MODEL
+        value: "1"
+      - key: WARM_UP_GRADCAM
+        value: "1"
+
+  - type: web
+    name: pneumonia-detection-diagnosis-assistant
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: ML_API_URL
+        value: https://pneumonia-detection-diagnosis-assistant-1.onrender.com
+      - key: CLIENT_URL
+        value: https://pneumonia-detection-diagnosis-assistant-tf5j.onrender.com
+
+  - type: web
+    name: pneumonia-detection-diagnosis-assistant-tf5j
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: VITE_API_BASE_URL
+        value: https://pneumonia-detection-diagnosis-assistant.onrender.com/api

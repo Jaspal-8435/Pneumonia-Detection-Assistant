@@ -1,0 +1,8 @@
+{
+  "threshold": 0.42,
+  "precision": 0.9798488664987406,
+  "recall": 0.9798488664987406,
+  "f1_score": 0.9798488664987406,
+  "target_recall": 0.9,
+  "note": "Threshold selected on validation set. PNEUMONIA is predicted when raw_pneumonia_probability >= threshold."
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.h5
+!ml-model/model.h5
+*.keras
+*.pt
+*.pkl
+uploads/
+ml-model/datasets/
+.DS_Store

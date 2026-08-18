@@ -1,0 +1,22 @@
+{
+  "split": "test",
+  "threshold": 0.42,
+  "accuracy": 0.8285256410256411,
+  "precision": 0.7881873727087576,
+  "recall": 0.9923076923076923,
+  "f1_score": 0.8785471055618616,
+  "confusion_matrix": [
+    [
+      130,
+      104
+    ],
+    [
+      3,
+      387
+    ]
+  ],
+  "class_order": [
+    "NORMAL",
+    "PNEUMONIA"
+  ]
+}
